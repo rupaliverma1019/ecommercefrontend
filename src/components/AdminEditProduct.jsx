@@ -87,9 +87,9 @@ const AdminEditProduct = ({
         const responseData = await response.json()
     
         if(responseData.success){
-            toast.success(responseData?.message)
-            onClose()
-            fetchData()
+            // toast.success(responseData?.message)
+            // onClose()
+            // fetchData()
             
         
     

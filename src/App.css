@@ -19,3 +19,7 @@
 .userTable tbody {
     @apply border text-base font-medium px-10
 }
+
+.scrollbar-none::-webkit-scrollbar {
+    display: none
+}
