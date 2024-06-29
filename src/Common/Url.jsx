@@ -49,7 +49,13 @@ const SummaryApi = {
      categoryWiseProduct: {
       url: `${backendDomain}/api/category-product`,
       method: 'post',
-  }
+    },
+    productDetails : {
+        url : `http://localhost:8080/api/product-details`,
+        method : 'post'
+    }
+   
+
 
 
 
