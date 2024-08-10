@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { useState } from 'react'
 import fetchCategoryWiseProduct from '../helpers/fetchCategoryWiseProduct'
 import displayINRCurrency from '../helpers/displayINRCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import addToCart from '../helpers/addToCart'
+import { Link } from 'react-router-dom'
+import Context from '../context/context'
 
 const VerticalCardProduct = ({category, heading}) => {
   
@@ -12,6 +14,13 @@ const VerticalCardProduct = ({category, heading}) => {
     const loadingList = new Array(13).fill(null)
     const [scroll , setscroll] = useState(0)
     const scrollElement = useRef(0)
+
+    const { fetchUserAddToCart } = useContext(Context)
+
+    const handleAddToCart = async(e,id)=>{
+       await addToCart(e,id)
+       fetchUserAddToCart()
+    }
 
     const fetchData = async() =>{
         setLoading(true)
@@ -69,7 +78,7 @@ const VerticalCardProduct = ({category, heading}) => {
             ) : (
                 data.map(( product , index)=>{
                     return (
-                      <div className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-full bg-white rounded-sm shadow'>
+                      <Link to={`/product/${product?._id}`} key={product.id || index} className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-full bg-white rounded-sm shadow'>
                   
                     <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center'>
                         <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply'/>
@@ -82,9 +91,9 @@ const VerticalCardProduct = ({category, heading}) => {
                         <p className='text-red-600 font-medium'>{displayINRCurrency(product?.sellingPrice) } </p>
                         <p className='text-slate-400 line-through'>{displayINRCurrency(product?.price) }</p>
                       </div>
-                      <button className=' text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full' onClick={(e) => addToCart (e, product?._id)} >Add to cart</button>
+                      <button className=' text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full' onClick={(e)=>handleAddToCart(e,product?._id)} >Add to cart</button>
                     </div>
-                </div>
+                </Link>
                 
                     )
                 })

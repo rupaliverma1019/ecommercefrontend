@@ -15,7 +15,7 @@ const fetchCategoryWiseProduct = async(category) =>{
         })
     }) 
     const dataResponse = await response.json()
-    console.log(dataResponse);
+    // console.log(dataResponse);
     return dataResponse;
 
 }

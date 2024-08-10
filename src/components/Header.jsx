@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { GrSearch } from "react-icons/gr";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle, FaShoppingCart } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import Logo from './Logo'
 import { Link } from 'react-router-dom';
@@ -9,14 +9,16 @@ import SummaryApi from '../Common/Url';
 import { toast } from 'react-toastify'
 import { setUserDetails } from '../Store/userSlice';
 import { useState } from 'react';
+import Context from '../context/context';
 
 
 const Header = () => {
   
   const user = useSelector(state=> state?.user?.user)
-  console.log("user header" , user)
+  // console.log("user header" , user)
   const dispatch = useDispatch()
   const[menuDisplay , setMenuDisplay] = useState(false)
+  const context = useContext(Context)
 
   const handleLogout = async() =>{
     const fetchData = await fetch(SummaryApi.userLogout.url , {
@@ -37,6 +39,7 @@ const Header = () => {
       toast.error(data.message)
     }
   }
+  console.log(`header add to cart count`, context);
   return (
      <div>
     <header className='h-20 shadow-md bg-slate-50 fixed w-full z-40'>
@@ -69,13 +72,17 @@ const Header = () => {
 
             </div>
 
-            <div className='text-2xl relative'>
-              <span><FaCartShopping/></span>
-
-              <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
-                <p className='text-sm'> 0</p>
-              </div>
-            </div>
+            {
+                     user?._id && (
+                      <Link to={"/cart"}  className='text-2xl relative'>
+                          <span><FaShoppingCart/></span>
+      
+                          <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
+                              <p className='text-sm'>{context?.cartProductCount}</p>
+                          </div>
+                      </Link>
+                      )
+                  }
             <div >
               {
                 user?._id  ? (

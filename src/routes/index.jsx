@@ -14,6 +14,7 @@ import AllProducts from "../pages/AllProducts";
 import CategoryProduct from "../pages/CategoryProduct";
 import ErrorBoundary from '../components/ErrorBoundary';
 import ProductDetails from "../pages/ProductDetails";
+import Cart from "../pages/Cart";
 // import ProductDetails from "../pages/ProductDetails";
 
 const router = createBrowserRouter([
@@ -23,7 +24,12 @@ const router = createBrowserRouter([
         errorElement: <ErrorBoundary />,
         children: [
             {
-                path: "home",
+                path:"/",
+                element: <Home />,
+                
+            },
+            {
+                path:"home",
                 element: <Home />,
                 
             },
@@ -46,6 +52,10 @@ const router = createBrowserRouter([
             {
                 path : "product/:_id",
                 element : <ProductDetails/>
+            },
+            {
+                path : "cart",
+                element : <Cart/>
             },
             {
                 path: "admin-panel",

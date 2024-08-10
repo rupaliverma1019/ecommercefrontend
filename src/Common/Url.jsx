@@ -51,8 +51,22 @@ const SummaryApi = {
       method: 'post',
     },
     productDetails : {
-        url : `http://localhost:8080/api/product-details`,
+        url : `${backendDomain}/api/product-details`,
         method : 'post'
+    },
+
+    addToCartProduct : {
+        url : `http://localhost:8080/api/addToCart`,
+        method : 'post'
+    },
+    addToCartProductCount : {
+        url : `http://localhost:8080/api/countAddToCartProduct`,
+
+        method : "get"
+    },
+    addToCartProductView : {
+        url : `http://localhost:8080/api/view-card-product`,
+        method : "get"
     }
    
 
